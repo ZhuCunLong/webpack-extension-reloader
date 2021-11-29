@@ -13,5 +13,5 @@ const logLevel = process.env.NODE_ENV
     }[process.env.NODE_ENV]
   : ERROR;
 
-setLogLevel(logLevel);
+setLogLevel(logLevel as LOG_LEVEL);
 export = ExtensionReloaderImpl;

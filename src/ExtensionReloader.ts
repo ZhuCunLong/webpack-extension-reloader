@@ -80,6 +80,8 @@ export default class ExtensionReloaderImpl extends AbstractPluginReloader
       this._opts,
     );
 
+    // 如果插件的option中传入了manifest,相当于插件会做一个校验
+    // 而不用打包之后导入浏览器才会发现错误
     const parsedEntries: IEntriesOption = manifest
       ? extractEntries(
           compiler.options.entry as Entry,
@@ -88,6 +90,7 @@ export default class ExtensionReloaderImpl extends AbstractPluginReloader
         )
       : entries;
 
+    // 对compiler的hooks做了一些兼容性处理
     this._eventAPI = new CompilerEventsFacade(compiler);
     this._injector = middlewareInjector(parsedEntries, { port, reloadPage });
     this._triggerer = changesTriggerer(port, reloadPage);
