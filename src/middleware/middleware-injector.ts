@@ -6,6 +6,7 @@ const middlewareInjector: MiddlewareInjector = (
   { background, contentScript, extensionPage },
   { port, reloadPage },
 ) => {
+  // 获得了一个中间件脚本
   const source: Source = middleWareSourceBuilder({ port, reloadPage });
   const sourceFactory: SourceFactory = (...sources): Source =>
     new ConcatSource(...sources);
@@ -22,6 +23,7 @@ const middlewareInjector: MiddlewareInjector = (
       if (matchBgOrContentOrPage(name)) {
         files.forEach(entryPoint => {
           if (/\.js$/.test(entryPoint)) {
+            // 将监听脚本注入各个插件的js中，妙啊
             const finalSrc = sourceFactory(source, assets[entryPoint]);
             prev[entryPoint] = finalSrc;
           }

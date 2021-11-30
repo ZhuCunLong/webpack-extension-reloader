@@ -92,8 +92,11 @@ export default class ExtensionReloaderImpl extends AbstractPluginReloader
 
     // 对compiler的hooks做了一些兼容性处理
     this._eventAPI = new CompilerEventsFacade(compiler);
+    // 这是一个注入器，是一个function
     this._injector = middlewareInjector(parsedEntries, { port, reloadPage });
+    // 这里启动监听服务
     this._triggerer = changesTriggerer(port, reloadPage);
+    // 这里利用注入器执行脚本的注入操作
     this._eventAPI.afterOptimizeChunkAssets((comp, chunks) => {
       comp.assets = {
         ...comp.assets,

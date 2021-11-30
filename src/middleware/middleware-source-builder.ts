@@ -13,6 +13,7 @@ export default function middleWareSourceBuilder({
   port,
   reloadPage,
 }: IMiddlewareTemplateParams): Source {
+  // rawSource 使用raw-loader将文件转换为字符串
   const tmpl = template(rawSource);
 
   return new RawSource(
